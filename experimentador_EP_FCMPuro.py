@@ -384,7 +384,7 @@ if not df_raw.empty:
     ax2.grid(True, alpha=0.3)
     
     plt.tight_layout()
-    plt.savefig('relatorio_complexidade.png', dpi=300)
+    plt.savefig('relatorio_complexidade_purp.png', dpi=300)
     plt.show()
     
     print("\nPipeline concluído. Gráficos gerados e salvos como 'relatorio_complexidade.png'.")
@@ -392,7 +392,7 @@ if not df_raw.empty:
 	# ==========================================
     # 7. Exportação dos Dados para Avaliação
     # ==========================================
-    arquivo_csv = 'resultados_foca_aluno.csv'
+    arquivo_csv = 'resultados_puro_foca_aluno.csv'
     
     # Exporta os dados usando ponto e vírgula como separador e vírgula para decimais,
     # garantindo que o arquivo seja aberto corretamente no Excel em PT-BR.
