@@ -421,7 +421,7 @@ if not df_raw.empty:
     ax_3d.legend()
     
     plt.tight_layout()
-    plt.savefig('superficie_3d_foca.png', dpi=300)
+    plt.savefig('superficie_pura_3d_foca.png', dpi=300)
     plt.show()
     
 	# ==========================================
