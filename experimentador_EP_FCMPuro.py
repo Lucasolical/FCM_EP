@@ -17,11 +17,12 @@ import random
 from PIL import Image
 import matplotlib.pyplot as plt
 
-def fcm_processar_imagem(img, K, m=2.0, max_iter=100, epsilon=0.01):
+def segmenta_imagem(imagem_array, K, m=2.0, max_iter=100, epsilon=0.01):
     """
-    Executa o pipeline completo do FCM Puro com proteções contra índice inválido e divisão por zero.
+    Executa a segmentação FCM recebendo a matriz da imagem (numpy array) e o número de clusters K.
     """
-    
+    # 1. Converte o array NumPy para imagem PIL e garante 3 canais (RGB)
+    img = Image.fromarray(imagem_array).convert("RGB")
     largura, altura = img.size
     
     # Extração segura dos pixels da imagem
@@ -211,7 +212,7 @@ if __name__ == "__main__":
         t0 = time.perf_counter()
         
         # ATENÇÃO: Agora pegando os 3 retornos corretamente
-        centroides, pertinencias, imagem_segmentada = fcm_processar_imagem(
+        centroides, pertinencias, imagem_segmentada = segmenta_imagem(
             img=imagem,
             K=K_clusters,
             m=fator_m,
