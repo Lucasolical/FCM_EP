@@ -110,7 +110,7 @@ def segmenta_imagem(imagem_array, k, m=2.0, max_iter=100, epsilon=0.01):
 # ==========================================
 img_dir = "./minhas_imagens" # Substitua pelo diretório real
 k_list = [2, 3, 4]
-R =5 # Número de repetições por combinação
+R = 30 # Número de repetições por combinação
 
 print("Mapeando imagens e calculando 'n' (apenas cabeçalhos)...")
 arquivos_n = []
