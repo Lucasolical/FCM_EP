@@ -110,7 +110,7 @@ def segmenta_imagem(imagem_array, k, m=2.0, max_iter=100, epsilon=0.01):
 # ==========================================
 img_dir = "./minhas_imagens" # Substitua pelo diretório real
 k_list = [2, 3, 4]
-R =5 # Número de repetições por combinação
+R =30 # Número de repetições por combinação
 
 print("Mapeando imagens e calculando 'n' (apenas cabeçalhos)...")
 arquivos_n = []
@@ -151,8 +151,9 @@ for item in arquivos_n:
     # Executa todas as repetições e Ks para esta imagem
     for k in k_list:
         for r in range(R):
+            random.seed(42)
             t0 = time.perf_counter()
-            segmenta_imagem(img_array, k)  # A matriz é passada aqui
+            segmenta_imagem(img_array, k, max_iter=10, epsilon=0.0)  # A matriz é passada aqui
             t1 = time.perf_counter()
             
             resultados.append({
@@ -209,6 +210,18 @@ if not df_raw.empty:
     # O p0 pode precisar de sintonia dependendo da escala de tempo real
     popt, _ = curve_fit(model_n_k, X_data, y_data, p0=[1e-6, 1e-6, 1e-6, 0.01], maxfev=10000)
     resumo['tempo_predito'] = model_n_k(X_data, *popt)
+
+    residuals = y_data - resumo['tempo_predito']
+    ss_res = np.sum(residuals**2)
+    ss_tot = np.sum((y_data - np.mean(y_data))**2)
+    r_squared = 1 - (ss_res / ss_tot)
+
+    print("\n--- PARÂMETROS CALIBRADOS (COPIAR PARA O RELATÓRIO) ---")
+    print(f"alpha = {popt[0]:.8f}")
+    print(f"beta  = {popt[1]:.8f}")
+    print(f"gamma = {popt[2]:.8f}")
+    print(f"delta = {popt[3]:.8f}")
+    print(f"R^2   = {r_squared:.4f}")
     
     # ==========================================
     # 6. Plotagens Bidimensionais
